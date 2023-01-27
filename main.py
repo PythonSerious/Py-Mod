@@ -50,10 +50,10 @@ def launch():
 def run():
     intro()
     print("[ CHECKING FOR CONFIG FILE ]")
-    if os.path.exists("config.json"):
+    if os.path.exists("src/storage/config.json"):
         print("[ CONFIG FILE FOUND ]")
     else:
-        with open("config.json", "w") as f:
+        with open("src/storage/config.json", "w") as f:
             data = """{"application_id": null}"""
             f.write(data)
         print("[ CONFIG FILE CREATED ]")
@@ -67,7 +67,7 @@ def run():
         cursor.execute(
             """CREATE TABLE guild (prefix TEXT, status TEXT, modlogs TEXT, actionlogs TEXT, modroles TEXT, adminroles TEXT)""")
         cursor.execute("""INSERT INTO guild VALUES (?, ?, ?, ?, ?, ?)""",
-                       ("!", "3 |DATA_TYPE_SPLIT| out for commands!", "", "", "", ""))
+                       ("!", "3 0DATA_TYPE_SPLIT0 out for commands!", "", "", "", ""))
         cursor.close()
         db.commit()
         db.close()
@@ -135,6 +135,7 @@ def run():
         print("[ APPLICATION ID SET ]")
     else:
         print("[ APPLICATION ID FOUND ]")
+        print(config_json["application_id"])
         application_id = config_json["application_id"]
     try:
         int(application_id)
@@ -152,11 +153,13 @@ def run():
         with open("src/storage/config.json", "w") as f:
             json.dump(config_json, f, indent=4)
         print("[ TOKEN SET ]")
+        from termcolor import colored
+        print(colored(f"!!! PLEASE ENSURE TO TURN ON INTENTS https://discord.com/developers/applications/{application_id}/bot !!!", "red"))
     else:
         print("[ TOKEN FOUND ]")
 
     print("[ PRE-START CHECKS COMPLETE ]")
-    time.sleep(2)
+    time.sleep(5)
     intro()
     print(f"\nApplication ID: {application_id}\nRunning on Python {sys.version.split(' ')[0]}")
     print("------------------")
