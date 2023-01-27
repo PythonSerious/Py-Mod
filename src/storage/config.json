@@ -1,0 +1,121 @@
+{
+    "application_id": 994759553239482498,
+    "webhook": "",
+    "token": "",
+    "commands": {
+        "utilities": {
+            "ping": {
+                "enabled": true,
+                "permission": ""
+            },
+            "say": {
+                "enabled": true,
+                "permission": "moderator"
+            },
+            "clean": {
+                "enabled": true,
+                "permission": "moderator"
+            },
+            "purge": {
+                "enabled": true,
+                "permission": "moderator"
+            },
+            "members": {
+                "enabled": true,
+                "permission": ""
+            },
+            "avatar": {
+                "enabled": true,
+                "permission": ""
+            },
+            "profile": {
+                "enabled": true,
+                "permission": ""
+            },
+            "quote": {
+                "enabled": true,
+                "permission": "moderator"
+            },
+            "slow_mode": {
+                "enabled": true,
+                "permission": "moderator"
+            }
+        },
+        "moderation": {
+            "warn": {
+                "enabled": true,
+                "permission": "moderator"
+            },
+            "kick": {
+                "enabled": true,
+                "permission": "moderator"
+            },
+            "ban": {
+                "enabled": true,
+                "permission": "moderator"
+            },
+            "unban": {
+                "enabled": true,
+                "permission": "moderator"
+            },
+            "mute": {
+                "enabled": true,
+                "permission": "moderator"
+            },
+            "unmute": {
+                "enabled": true,
+                "permission": "moderator"
+            },
+            "soft_ban": {
+                "enabled": true,
+                "permission": "moderator"
+            },
+            "mod_log": {
+                "enabled": true,
+                "permission": "moderator"
+            },
+            "modify_log": {
+                "enabled": true,
+                "permission": "moderator"
+            }
+        },
+        "settings": {
+            "settings": {
+                "enabled": true,
+                "permission": "owner"
+            }
+        },
+        "tickets": {
+            "setup": {
+                "enabled": true,
+                "permission": "admin"
+            },
+            "close": {
+                "enabled": true,
+                "permission": "moderator"
+            },
+            "re_open": {
+                "enabled": true,
+                "permission": "moderator"
+            },
+            "delete": {
+                "enabled": true,
+                "permission": "admin"
+            }
+        },
+        "developer": {
+            "eval": {
+                "enabled": true,
+                "permission": "owner"
+            },
+            "extension": {
+                "enabled": true,
+                "permission": "owner"
+            },
+            "shutdown": {
+                "enabled": true,
+                "permission": "owner"
+            }
+        }
+    }
+}
