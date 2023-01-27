@@ -67,7 +67,13 @@ class BOT(commands.Bot):
 def start(application_id):
     bot = BOT(application_id)
     logger.log("Booting...", logtype=logger.logtypes.info)
-    bot.run(token, reconnect=True, log_level=0)
+    try:
+        bot.run(token, reconnect=True, log_level=0)
+    except discord.errors.PrivilegedIntentsRequired:
+        import termcolor
+        print(termcolor.colored("PLEASE ENABLE ALL 3 PRIVILEGED GATEWAY INTENTS.", "red"))
+        print(termcolor.colored(f"https://discord.com/developers/applications/{application_id}/bot", "red"))
+        exit(1)
 
 
 if __name__ == "__main__":
