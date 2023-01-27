@@ -19,6 +19,8 @@ else:
 
 def intro():
     from termcolor import colored
+    if "--run" in sys.argv:
+        run()
     os.system(clear)
     print(colored("""
           ____           ____  __           _ 
