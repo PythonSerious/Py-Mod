@@ -273,6 +273,8 @@ class Utilities(commands.Cog):
             return await interaction.response.send_message(":x: This command is disabled.", ephemeral=True)
 
         if permissions_check(interaction, sys._getframe().f_code.co_name):
+            if not "https://" and not "discord.com/channels/" in url:
+                return await interaction.response.send_message(":x: Invalid message URL.", ephemeral=True)
             try:
 
                 mounts = url.split("/")
