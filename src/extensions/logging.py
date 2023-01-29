@@ -28,7 +28,7 @@ class Logging(commands.Cog):
         if message.guild is None:
             return
 
-        action_log = data.read("guild")[0][2]
+        action_log = data.read("guild")[0][3]
         if action_log == "":
             return
         channel = self.bot.get_channel(int(action_log))
@@ -53,7 +53,7 @@ class Logging(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel):
 
-        action_log = data.read("guild")[0][2]
+        action_log = data.read("guild")[0][3]
         if action_log == "":
             return
         channel2 = self.bot.get_channel(int(action_log))
@@ -67,7 +67,7 @@ class Logging(commands.Cog):
     async def on_guild_channel_delete(self, channel):
 
         try:
-            action_log = data.read("guild")[0][2]
+            action_log = data.read("guild")[0][3]
             if action_log == "":
                 return
             channel2 = self.bot.get_channel(int(action_log))
@@ -128,7 +128,7 @@ class Logging(commands.Cog):
         if before.author.bot:
             return
 
-        action_log = data.read("guild")[0][2]
+        action_log = data.read("guild")[0][3]
         if action_log == "":
             return
         channel = self.bot.get_channel(int(action_log))
@@ -161,7 +161,7 @@ class Logging(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_create_role(self, role):
 
-        action_log = data.read("guild")[0][2]
+        action_log = data.read("guild")[0][3]
         if action_log == "":
             return
         channel = self.bot.get_channel(int(action_log))
@@ -172,7 +172,7 @@ class Logging(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_delete_role(self, role):
 
-        action_log = data.read("guild")[0][2]
+        action_log = data.read("guild")[0][3]
         if action_log == "":
             return
         channel = self.bot.get_channel(int(action_log))
@@ -184,7 +184,7 @@ class Logging(commands.Cog):
     async def on_guild_role_update(self, before, after):
         if before.name != after.name:
 
-            action_log = data.read("guild")[0][2]
+            action_log = data.read("guild")[0][3]
             if action_log == "":
                 return
             channel = self.bot.get_channel(int(action_log))
@@ -198,7 +198,7 @@ class Logging(commands.Cog):
 
                 await channel.send(embed=embed)
         if before.color != after.color:
-            action_log = data.read("guild")[0][2]
+            action_log = data.read("guild")[0][3]
             if action_log == "":
                 return
             channel = self.bot.get_channel(int(action_log))
@@ -213,7 +213,7 @@ class Logging(commands.Cog):
     @commands.Cog.listener()
     async def on_member_update(self, before, after):
 
-        action_log = data.read("guild")[0][2]
+        action_log = data.read("guild")[0][3]
         if action_log == "":
             return
         channel = self.bot.get_channel(int(action_log))
@@ -266,7 +266,7 @@ class Logging(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        action_log = data.read("guild")[0][2]
+        action_log = data.read("guild")[0][3]
         if action_log == "":
             return
         channel = self.bot.get_channel(int(action_log))
@@ -291,7 +291,7 @@ class Logging(commands.Cog):
     @commands.Cog.listener()
     async def on_member_remove(self, member):
 
-        action_log = data.read("guild")[0][2]
+        action_log = data.read("guild")[0][3]
         if action_log == "":
             return
         channel = self.bot.get_channel(int(action_log))
