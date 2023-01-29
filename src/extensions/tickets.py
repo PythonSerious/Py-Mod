@@ -2,6 +2,7 @@
 import asyncio
 import io
 import sys
+import json
 import discord
 from discord import app_commands
 from discord.ext import commands
@@ -20,7 +21,8 @@ class Ticket(commands.Cog):
 
     class ticketCreate(View):
         def __init__(self):
-            self.welcome = "A staff member will be with you shortly to assist you."
+            with open("src/storage/config.json", "r") as f:
+                self.welcome = json.load(f)["ticket_welcome"]
             super().__init__(timeout=None)
 
         @button(label="Open Ticket", style=discord.ButtonStyle.primary, emoji="📩")
@@ -44,7 +46,7 @@ class Ticket(commands.Cog):
                                              add_reactions=True, embed_links=True, attach_files=True,
                                              read_message_history=True, external_emojis=True)
                 welcome = discord.Embed(colour=discord.Colour.green(), description=self.welcome)
-                welcome.set_footer(text="ID: " + str(interaction.user.id), icon_url=interaction.client.user.avatar.url)
+                welcome.set_footer(text="ID: " + str(interaction.user.id), icon_url="https://cdn.discordapp.com/embed/avatars/1.png" if interaction.client.user.avatar is None else interaction.client.user.avatar.url)
                 msg = await ticket.send(content=f"Greetings, {interaction.user.mention}", embed=welcome)
                 data.write("tickets",
                            [str(interaction.user.id), str(int(ticket_id) + 1), "open", str(ticket.id),
@@ -132,14 +134,16 @@ class Ticket(commands.Cog):
             if ticket_owner is None or ticket_data is None:
                 await interaction.channel.send(f":x: No ticket data found. Deleting...")
                 await interaction.channel.delete()
+                return
 
             need_edit = await interaction.channel.send(embed=pre_tr)
             transcript = await chat_exporter.export(interaction.channel)
             transcript_file = discord.File(io.BytesIO(transcript.encode()),
                                            filename=f"transcript-{interaction.channel.name}.html")
-            action_log = data.read("guild")[0][2]
+            action_log = data.read("guild")[0][3]
             if action_log == "":
-                return
+                await interaction.channel.send(f":x: No action log found. Deleting...")
+                return await interaction.channel.delete()
             channel = await self.bot.fetch_channel(int(action_log))
             transcript_log = await self.bot.fetch_channel(int(action_log))
 
@@ -170,6 +174,8 @@ class Ticket(commands.Cog):
                     f"{'' if not send_transcript else f'You can view your transcript here: https://tickets.pythn.tech?turl={url}'}")
             except:
                 pass
+
+
 
 
 async def setup(bot: commands.Bot) -> None:
