@@ -111,6 +111,47 @@ class Settings(commands.Cog):
             json.dump(json_file, f, indent=4)
         await interaction.response.send_message(":white_check_mark: Bot logs channel saved! Please restart the bot.")
 
+    @settings_group.command(name="ticket_welcome", description="Change the message displayed when a ticket is created.")
+    async def ticket_welcome(self, interaction: discord.Interaction):
+        if command("settings"):
+            return await interaction.response.send_message(":x: This command is disabled.", ephemeral=True)
+        if not permissions_check(interaction, sys._getframe().f_code.co_name):
+            return await interaction.response.send_message(
+                "You do not have permission to use this command.", ephemeral=True)
+        await interaction.response.send_message("Please enter the message you would like to be displayed when a ticket "
+                                                "is created.")
+        message = await self.bot.wait_for("message", check=lambda m: m.author == interaction.user)
+        try:
+            await message.delete()
+        except discord.Forbidden:
+            pass
+        with open("src/storage/config.json", "r") as f:
+            json_file = json.load(f)
+        json_file["ticket_welcome"] = message.content
+        with open("src/storage/config.json", "w") as f:
+            json.dump(json_file, f, indent=4)
+        await interaction.edit_original_response(content=":white_check_mark: Ticket welcome message saved!")
+
+    @settings_group.command(name="ticket_general",
+                            description="Change the prompt message displayed before a ticket is created.")
+    async def ticket_general(self, interaction: discord.Interaction):
+        if command("settings"):
+            return await interaction.response.send_message(":x: This command is disabled.", ephemeral=True)
+        if not permissions_check(interaction, sys._getframe().f_code.co_name):
+            return await interaction.response.send_message(
+                "You do not have permission to use this command.", ephemeral=True)
+        await interaction.response.send_message(
+            "Please enter the message you would like to be displayed in the pre-open embed.")
+        message = await self.bot.wait_for("message", check=lambda m: m.author == interaction.user)
+        with open("src/storage/ticket_message.txt", "w") as f:
+            f.write(message.content)
+        try:
+            await message.delete()
+        except discord.Forbidden:
+            pass
+        await interaction.edit_original_response(
+            content=":white_check_mark: Ticket welcome message saved! (You must reboot and re-setup the ticket system)")
+
     @settings_group.command(name="commands", description="Enable/Disable the bot's commands")
     async def commands(self, interaction: discord.Interaction, extension: str, edit_command: str, status: bool):
         if command("settings"):
