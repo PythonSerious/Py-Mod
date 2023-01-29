@@ -172,7 +172,6 @@ def run():
 
 def modify_config():
     intro()
-    # Edit token or application id
     print("What would you like to edit?\n\n1 - Token\n2 - Application ID\n3 - Return to main menu\n")
     option = input("Option: ")
     if option == "1":
