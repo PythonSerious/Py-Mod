@@ -36,7 +36,7 @@ def intro():
 def launch():
     intro()
     print(
-        "Welcome to the Py/Mod launcher. Please select an option below.\n\nr - Run Py/Mod | e - Modify Confign | q - Quit Py/Mod\n")
+        "Welcome to the Py/Mod launcher. Please select an option below.\n\nr - Run Py/Mod | e - Modify Config | q - Quit Py/Mod\n")
     option = input("Option: ").lower()
     if option == "r":
         run()
